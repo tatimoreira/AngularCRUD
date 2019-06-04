@@ -39,9 +39,10 @@ candidateRoutes.route('/edit/:id').get(function (req, res) {
 
 //  Defined update route
 candidateRoutes.route('/update/:id').post(function (req, res) {
-    Candidate.findById(req.params.id, function(err, next, candidate) {
+    Candidate.findById(req.params.id, function(err, candidate) {
     if (!candidate)
-      return next(new Error('Could not load Document'));
+      res.status(400).send(err);
+      //return next(new Error('Could not load Document'));
     else {
         candidate.person_name = req.body.person_name;
         candidate.job = req.body.job;
